@@ -4,28 +4,21 @@ using UnityEngine;
 
 public class WinGame : MonoBehaviour
 {
-    [SerializeField] private GameObject _allPuzzleElem;
-    [SerializeField] private GameObject _panelPuzzle;
-    [SerializeField] private GameObject _winEffect;
+    [SerializeField] private AllPuzzle _allPuzzle;
+    [SerializeField] private GameObject _effectWin;
 
-    private int _fullElement;
-    private int _connectedElement;
-
-    private void Start()
+    private void OnEnable()
     {
-        _fullElement = _allPuzzleElem.transform.childCount;
+        _allPuzzle.On—omplete += FinishLevel;  
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if(_fullElement== _connectedElement)
-        {
-            _winEffect.SetActive(true);
-        }
+        _allPuzzle.On—omplete -= FinishLevel;
     }
 
-    public void AddConnectElement()
+    private void FinishLevel()
     {
-        _connectedElement++;
+        _effectWin.SetActive(true);
     }
 }

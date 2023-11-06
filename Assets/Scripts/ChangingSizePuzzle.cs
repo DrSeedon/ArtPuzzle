@@ -4,27 +4,25 @@ using UnityEngine;
 
 public class ChangingSizePuzzle : MonoBehaviour
 {
-    [SerializeField] GameObject _desiredScale; 
+    [SerializeField] GameObject _desiredScale;
 
-    private MovePuzzle _movePuzzle;
-    private Vector3 originalScale;
+    private MovementPuzzle _movePuzzle;
 
-    private void Start()
+
+    private void OnEnable()
     {
-        _movePuzzle = GetComponent<MovePuzzle>();
-        originalScale = transform.localScale;
+        _movePuzzle = GetComponent<MovementPuzzle>();
+
+        _movePuzzle.OnCreateElementCopy += IncreaseSize;
     }
 
-    private void OnMouseDown()
+    private void OnDisable()
     {
-        transform.localScale =_desiredScale.transform.localScale;
+        _movePuzzle.OnCreateElementCopy -= IncreaseSize;
     }
 
-    private void OnMouseUp()
+    private void IncreaseSize(MovementPuzzle puzzle)
     {
-        if (_movePuzzle.IsFinish== false)
-        {
-            transform.localScale = originalScale;
-        }
+        puzzle.transform.localScale = _desiredScale.transform.localScale;
     }
 }
