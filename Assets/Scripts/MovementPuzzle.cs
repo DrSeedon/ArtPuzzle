@@ -19,11 +19,12 @@ public class MovementPuzzle : MonoBehaviour
 
     public Action <MovementPuzzle> OnCreateElementCopy ;
     public Action<MovementPuzzle> OnJoined;
-
+    private Camera _mainCamera;
     public int Number => _number;
 
     private void Start()
     {
+        _mainCamera = Camera.main;
         _boxCollider = GetComponent<BoxCollider2D>();
     }
 
@@ -62,7 +63,7 @@ public class MovementPuzzle : MonoBehaviour
 
     private void Move()
     {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         _elementCopy.transform.position = mousePosition;
 
         PutInNewPositionElem();
@@ -71,7 +72,6 @@ public class MovementPuzzle : MonoBehaviour
     private void PutInNewPositionElem()
     {
         //print(Vector3.Distance(_elementCopy.transform.position, _form.transform.position));
-
 
         if (Vector3.Distance(_elementCopy.transform.position, _form.transform.position) <= 90.001f && _isActive)
         {

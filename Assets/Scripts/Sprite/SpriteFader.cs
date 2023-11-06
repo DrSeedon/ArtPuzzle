@@ -16,7 +16,6 @@ public class SpriteFader : MonoBehaviour
         // Assign the materials to the SpriteRenderers
         outlineSprite.GetComponent<SpriteRenderer>().material = outlineMaterial;
         colorSprite.GetComponent<SpriteRenderer>().material = colorMaterial;
-
         // Initial setting of the mask
         outlineMaterial.SetTexture("_Mask", maskTexture);
         colorMaterial.SetTexture("_Mask", maskTexture);

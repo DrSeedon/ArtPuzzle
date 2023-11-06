@@ -6,19 +6,22 @@ using static UnityEditor.Progress;
 
 public class AllPuzzle : MonoBehaviour
 {
-    private int _currentNumber = 1;
+    public int _currentNumber = 1;
 
-    private List<MovementPuzzle> _allPuzzleList = new List<MovementPuzzle>();
+    public List<MovementPuzzle> _allPuzzleList = new List<MovementPuzzle>();
 
-    public Action On—omplete;
+    public Action OnComplete; 
 
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            MovementPuzzle _element = transform.GetChild(i).gameObject.GetComponent<MovementPuzzle>();
-            _allPuzzleList.Add(_element);
-            _allPuzzleList[i].OnJoined += FindElemets;
+            MovementPuzzle element = transform.GetChild(i).gameObject.GetComponent<MovementPuzzle>();
+            if (element != null)
+            {
+                _allPuzzleList.Add(element);
+                element.OnJoined += FindElemets;
+            }
         }
 
         TryFindElementsWithDesiredNumber();
@@ -30,7 +33,7 @@ public class AllPuzzle : MonoBehaviour
 
         if(_allPuzzleList.Count==0)
         {
-            On—omplete?.Invoke();
+            OnComplete?.Invoke();
             return;
         }
 
@@ -58,13 +61,8 @@ public class AllPuzzle : MonoBehaviour
 
     private void RemoveDeletedElements(MovementPuzzle puzzle)
     {
-        foreach (MovementPuzzle _element in _allPuzzleList)
-        {
-            if(_element == puzzle)
-            {
-               _allPuzzleList.Remove(puzzle);
-            }
-        }
+        _allPuzzleList.RemoveAll(p => p == puzzle);
     }
+
 }
         

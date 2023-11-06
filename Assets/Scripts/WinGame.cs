@@ -9,12 +9,12 @@ public class WinGame : MonoBehaviour
 
     private void OnEnable()
     {
-        _allPuzzle.On—omplete += FinishLevel;  
+        _allPuzzle.OnComplete += FinishLevel;  
     }
 
     private void OnDisable()
     {
-        _allPuzzle.On—omplete -= FinishLevel;
+        _allPuzzle.OnComplete -= FinishLevel;
     }
 
     private void FinishLevel()
